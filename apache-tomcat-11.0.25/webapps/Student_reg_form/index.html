@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spider-Man Registration Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Spider-Man Color Palette */
+            --primary: #e23636;      
+            --primary-dark: #b91c1c; 
+            --secondary: #1d4ed8;    
+            --text-dark: #f8fafc;    
+            --text-light: #94a3b8;   
+            --bg-card: rgba(15, 23, 42, 0.85); 
+            --border-color: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #020617;
+            /* Cinematic lighting: Red on left, Blue on right */
+            background-image: 
+                radial-gradient(circle at 15% 30%, rgba(226, 54, 54, 0.15), transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(29, 78, 216, 0.15), transparent 40%),
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 15px 30px; 
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        /* Subtle, continuous swinging animation */
+        @keyframes continuousSwing {
+            0% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+            100% { transform: rotate(-3deg); }
+        }
+
+        /* 3D Mascot Floating/Breathing Animation */
+        @keyframes floatSpidey {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .form-wrapper {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border-radius: 24px;
+            padding: 40px 50px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 
+                        0 0 0 1px rgba(226, 54, 54, 0.2) inset;
+            width: 100%;
+            max-width: 750px;
+            position: relative;
+            z-index: 10;
+            
+            /* Apply the continuous swing from the top center */
+            transform-origin: top center;
+            animation: continuousSwing 6s ease-in-out infinite;
+        }
+
+        /* The Web Line now sits inside the wrapper to swing with it */
+        .web-line {
+            position: absolute;
+            bottom: 100%; /* Attaches to the top of the form */
+            left: 50%;
+            width: 2px;
+            height: 100vh; /* Reaches all the way to the top of the screen */
+            background: rgba(255,255,255,0.6);
+            box-shadow: 0 0 8px rgba(255,255,255,0.8);
+            z-index: -1;
+            margin-left: -1px; /* Centers the 2px line perfectly */
+        }
+
+        .spiderman-mascot {
+            position: absolute;
+            top: -150px; 
+            right: 30px;
+            width: 200px; 
+            z-index: 50;
+            animation: floatSpidey 3.5s ease-in-out infinite;
+            filter: drop-shadow(0 20px 15px rgba(0,0,0,0.8)); 
+            pointer-events: none;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h2 {
+            color: var(--primary);
+            font-size: 34px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(226, 54, 54, 0.3);
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .input-group { position: relative; }
+
+        .input-group input,
+        .input-group textarea,
+        .standard-group select,
+        .standard-group input[type="date"] {
+            width: 100%;
+            padding: 20px 16px 8px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--text-dark);
+            background: rgba(0, 0, 0, 0.3); 
+            outline: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .standard-group select,
+        .standard-group input[type="date"] {
+            padding: 14px 16px;
+            color: var(--text-light);
+        }
+
+        .standard-group select option {
+            background: #0f172a;
+            color: white;
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 15px;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input-group textarea ~ label { top: 24px; }
+
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .standard-group select:focus,
+        .standard-group input[type="date"]:focus,
+        .input-group input:not(:placeholder-shown),
+        .input-group textarea:not(:placeholder-shown) {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(226, 54, 54, 0.2);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .input-group input:focus ~ label,
+        .input-group textarea:focus ~ label,
+        .input-group input:not(:placeholder-shown) ~ label,
+        .input-group textarea:not(:placeholder-shown) ~ label {
+            top: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .standard-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .radio-container {
+            display: flex;
+            gap: 20px;
+            padding: 12px 0;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 15px;
+            color: var(--text-dark);
+        }
+
+        .radio-label input[type="radio"] {
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            margin-right: 8px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-label input[type="radio"]:checked {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(226, 54, 54, 0.4);
+        }
+
+        .radio-label input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(226, 54, 54, 0.4);
+            z-index: 1;
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            z-index: -1;
+            transition: 0.5s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(226, 54, 54, 0.6);
+        }
+
+        .btn-submit:hover::before { left: 100%; }
+        .btn-submit:active { transform: translateY(1px); }
+
+        .btn-reset {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-light);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-reset:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-color: var(--text-light);
+        }
+
+        @media (max-width: 650px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .form-wrapper { padding: 40px 25px 30px; }
+            .btn-container { flex-direction: column; }
+            .spiderman-mascot { width: 140px; top: -110px; right: 15px; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-wrapper">
+        <!-- Moved web-line inside so it swings perfectly with the form -->
+        <div class="web-line"></div>
+        
+        <img class="spiderman-mascot" 
+             src="https://freepngimg.com/thumb/spiderman/35697-3-spiderman-transparent-background.png" 
+             alt="Spider-Man Mascot (Image Blocked)">
+
+        <div class="header">
+            <h2>Avenger Enrollment</h2>
+            <p>Register your identity in the Stark Database.</p>
+        </div>
+
+        <form id="studentRegistrationForm">
+            <div class="form-grid">
+                
+                <div class="input-group">
+                    <input type="text" id="firstName" name="firstName" placeholder=" " required>
+                    <label for="firstName">First Name</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="lastName" name="lastName" placeholder=" " required>
+                    <label for="lastName">Last Name</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" id="email" name="email" placeholder=" " required>
+                    <label for="email">Secure Email</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="tel" id="phone" name="phone" placeholder=" " required>
+                    <label for="phone">Comm Link (Phone)</label>
+                </div>
+
+                <div class="standard-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+
+                <div class="standard-group">
+                    <label>Hero Identity</label>
+                    <div class="radio-container">
+                        <label class="radio-label">
+                            <input type="radio" name="gender" value="male" required> Male
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="gender" value="female"> Female
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="gender" value="other"> Classified
+                        </label>
+                    </div>
+                </div>
+
+                <div class="standard-group full-width">
+                    <label for="course">Assigned Division</label>
+                    <select id="course" name="course" required>
+                        <option value="" disabled selected>-- Select a Division --</option>
+                        <option value="tech">Stark Tech Engineering</option>
+                        <option value="combat">Advanced Hand-to-Hand</option>
+                        <option value="web">Web-Fluid Mechanics</option>
+                        <option value="stealth">Stealth & Reconnaissance</option>
+                    </select>
+                </div>
+
+                <div class="input-group full-width">
+                    <textarea id="address" name="address" placeholder=" " required></textarea>
+                    <label for="address">Secret Base Location</label>
+                </div>
+
+                <div class="btn-container full-width">
+                    <button type="reset" class="btn-reset">Erase Data</button>
+                    <button type="submit" class="btn-submit">Initialize Registration</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
