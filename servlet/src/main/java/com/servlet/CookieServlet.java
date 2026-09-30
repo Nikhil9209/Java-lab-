@@ -19,14 +19,25 @@ public class CookieServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html");
-
-        Cookie cookie = new Cookie("username", "Nikhil");
-
-        response.addCookie(cookie);
-
         PrintWriter out = response.getWriter();
 
-        out.println("<h1>Cookie Created</h1>");
-        out.println("<p>Username cookie has been created.</p>");
+        Cookie cookie = new Cookie("username", "Jahanvi");
+        response.addCookie(cookie);
+
+        out.println("<h1>Cookie Handling</h1>");
+        out.println("<p>Username cookie ('Jahanvi') created/sent.</p>");
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            out.println("<h3>Existing Cookies:</h3><ul>");
+            for (Cookie c : cookies) {
+                out.println("<li>" + c.getName() + " = " + c.getValue() + "</li>");
+            }
+            out.println("</ul>");
+        } else {
+            out.println("<p>No cookies received in this request yet (refresh page to see cookie returned by browser).</p>");
+        }
+
+        out.println("<br><a href='index.html'>Back to Home</a>");
     }
 }

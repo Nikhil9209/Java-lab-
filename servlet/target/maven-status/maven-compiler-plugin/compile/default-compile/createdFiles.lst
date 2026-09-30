@@ -1,4 +1,6 @@
 com\servlet\HelloServlet.class
+com\servlet\LogoutServlet.class
+com\servlet\MyFilter.class
 com\servlet\AppListener.class
 com\servlet\LoginServlet.class
 com\servlet\HomeServlet.class

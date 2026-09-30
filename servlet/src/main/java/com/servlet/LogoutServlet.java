@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/home")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/logout")
+public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request,
@@ -19,17 +19,15 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html");
-
-        HttpSession session =
-                request.getSession(false);
-
-        String username =
-                (String) session.getAttribute("username");
-
         PrintWriter out = response.getWriter();
 
-        out.println("<h1>Student Home</h1>");
-        out.println("<h2>Welcome " + username + "</h2>");
-        out.println("<br><a href='logout'>Logout</a>");
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        out.println("<h1>Logged Out Successfully</h1>");
+        out.println("<p>Session has been invalidated.</p>");
+        out.println("<a href='index.html'>Login Again</a>");
     }
 }
