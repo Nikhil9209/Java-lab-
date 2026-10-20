@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class Gaurav extends JFrame implements ActionListener {
+public class Nikhil extends JFrame implements ActionListener {
 
     JLabel lblName, lblRoll, lblBranch, lblGender;
     JTextField txtName, txtRoll, txtBranch;
@@ -11,7 +11,7 @@ public class Gaurav extends JFrame implements ActionListener {
     JCheckBox chkTerms;
     JButton btnSubmit, btnReset;
 
-    Gaurav() {
+    Nikhil() {
 
         setTitle("Student Registration Form");
         setSize(500, 400);
@@ -150,43 +150,51 @@ public class Gaurav extends JFrame implements ActionListener {
             String name,
             String roll,
             String branch,
-            String gender){
+            String gender) {
 
-        Connection con = DriverManager.getConnection(
-            "jdbc:mysql://127.0.0.1:3306/college",
-            "root",
-            "java@lab"
-        );
+        try {
+            Connection con = DriverManager.getConnection(
+                "jdbc:mysql://127.0.0.1:3306/college",
+                "root",
+                "java@lab"
+            );
 
-        System.out.println("Connection created");
+            System.out.println("Connection created");
 
-        PreparedStatement ps = con.prepareStatement(
-            "INSERT INTO student(name, roll_number, branch, gender) VALUES(?,?,?,?)"
-        );
+            PreparedStatement ps = con.prepareStatement(
+                "INSERT INTO student(name, roll_number, branch, gender) VALUES(?,?,?,?)"
+            );
 
-        ps.setString(1, name);
-        ps.setString(2, roll);
-        ps.setString(3, branch);
-        ps.setString(4, gender);
+            ps.setString(1, name);
+            ps.setString(2, roll);
+            ps.setString(3, branch);
+            ps.setString(4, gender);
 
-        ps.executeUpdate();
+            ps.executeUpdate();
 
-        System.out.println("Record Inserted");
+            System.out.println("Record Inserted");
 
-        JOptionPane.showMessageDialog(
-            this,
-            "Registration Successful!\n\n"
-            + "Name : " + name
-            + "\nRoll No : " + roll
-            + "\nBranch : " + branch
-            + "\nGender : " + gender
-        );
+            JOptionPane.showMessageDialog(
+                this,
+                "Registration Successful!\n\n"
+                + "Name : " + name
+                + "\nRoll No : " + roll
+                + "\nBranch : " + branch
+                + "\nGender : " + gender
+            );
 
-        ps.close();
-        con.close();
+            ps.close();
+            con.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Database Error: " + e.getMessage()
+            );
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
-        new Gaurav();
+        new Nikhil();
     }
 }
