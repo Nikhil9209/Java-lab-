@@ -1,0 +1,17 @@
+{
+    "java.project.sourcePaths": [
+        "jdbc/src",
+        "src"
+    ],
+    "java.project.outputPath": "jdbc/bin",
+    "java.project.referencedLibraries": [
+        "jdbc/lib/**/*.jar",
+        "lib/**/*.jar"
+    ],
+    "code-runner.executorMap": {
+        "java": "cmd /c \"cd /d $dir && javac -cp .;../lib/*;lib/*;$workspaceRoot/jdbc/lib/* $fileName && java -cp .;../lib/*;lib/*;$workspaceRoot/jdbc/lib/* $fileNameWithoutExt\""
+    },
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.runInTerminal": false
+}

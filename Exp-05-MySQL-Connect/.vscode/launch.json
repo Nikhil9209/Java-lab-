@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Run Experiment 5 (App)",
+            "request": "launch",
+            "mainClass": "App",
+            "env": {
+                "DB_PASSWORD": "java@lab"
+            }
+        }
+    ]
+}

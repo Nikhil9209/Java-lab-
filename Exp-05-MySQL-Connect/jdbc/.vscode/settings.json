@@ -1,0 +1,13 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "code-runner.executorMap": {
+        "java": "cmd /c \"cd /d $dir && javac -cp .;../lib/*;lib/*;$workspaceRoot/lib/* $fileName && java -cp .;../lib/*;lib/*;$workspaceRoot/lib/* $fileNameWithoutExt\""
+    },
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.runInTerminal": false
+}
